@@ -1,0 +1,78 @@
+body, html { margin: 0; padding: 0; height: 100%; font-family: 'Inter', sans-serif; background-color: #1a1a1a; }
+#map { height: 100vh; width: 100vw; z-index: 1; }
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px);
+    border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #800026;
+}
+
+#map-title {
+    position: absolute; top: 20px; left: 20px; z-index: 1000;
+    padding: 12px 20px; pointer-events: none;
+}
+#map-title h1 { margin: 0; font-size: 1.1rem; color: #2d3748; text-transform: uppercase; letter-spacing: 0.5px; }
+#map-title p { margin: 4px 0 0 0; font-size: 0.85rem; color: #4a5568; }
+
+#logo-idetdf {
+    position: absolute; bottom: 25px; left: 25px; z-index: 1000;
+    max-width: 120px; background: rgba(255, 255, 255, 0.9);
+    padding: 8px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Rediseño de Popups (MapLibre) --- */
+.maplibregl-popup-content {
+    border-radius: 6px; padding: 0; width: 280px !important;
+}
+.maplibregl-popup-close-button {
+    font-size: 16px; color: #4a5568; padding: 4px 8px;
+}
+.popup-container {
+    max-height: 220px; overflow-y: auto; padding: 15px 5px 15px 15px; margin-top: 10px;
+}
+.popup-container::-webkit-scrollbar { width: 6px; }
+.popup-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.popup-container::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
+
+.popup-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.popup-table th, .popup-table td { padding: 6px 8px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+.popup-table th { text-align: left; color: #4a5568; font-weight: 600; width: 45%; background-color: #f7fafc; }
+.popup-table td { color: #1a202c; word-break: break-word; }
+
+/* --- Control de Capas Personalizado --- */
+#layer-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 15px;
+    min-width: 200px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+#layer-control::-webkit-scrollbar { width: 6px; }
+#layer-control::-webkit-scrollbar-track { background: transparent; }
+#layer-control::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
+
+#layer-control h3 {
+    margin: 0 0 10px 0;
+    font-size: 0.85rem;
+    color: #2d3748;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.layer-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #1a202c;
+    cursor: pointer;
+}
+
+.layer-item input {
+    margin-right: 10px;
+    cursor: pointer;
+}

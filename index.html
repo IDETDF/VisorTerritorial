@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor Analítico - Ampliación Ejido Urbano</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    
+    <div id="map-title" class="glass-panel">
+        <h1>Análisis Territorial</h1>
+        <p>Propuesta de Ampliación del Ejido Urbano</p>
+    </div>
+    <div id="layer-control" class="glass-panel">
+        <h3>Vista</h3>
+        <label class="layer-item">
+            <input type="checkbox" id="toggle-3d"> <b>Activar Terreno 3D</b>
+        </label>
+        <hr style="border: 0; border-top: 1px solid #cbd5e0; margin: 10px 0;">
+        
+        <h3>Mapas Base</h3>
+        <div id="base-maps-list"></div>
+        <hr style="border: 0; border-top: 1px solid #cbd5e0; margin: 10px 0;">
+        
+        <h3>Capas Activas</h3>
+        <div id="overlays-list"></div>
+    </div>
+
+    <div id="map"></div>
+    
+    <img id="logo-idetdf" src="logo_idetdf.png" alt="Logo IDETDF">
+
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
