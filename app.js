@@ -188,7 +188,7 @@ map.on('load', () => {
         weight: 2 
     });
 
-    loadLayerMapLibre('otbn', 'OTBN (Bosques)', './data/otbn.geojson', 'polygon', { 
+    loadLayerMapLibre('otbn', 'Bosques Nativos', './data/otbn.geojson', 'polygon', { 
         color: [
             'match',
             ['get', 'id_'],
