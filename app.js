@@ -18,21 +18,21 @@ const map = new maplibregl.Map({
             },
             'maptiler-terrain': {
                 type: 'raster-dem',
-                tiles: ['https://api.maptiler.com/tiles/terrain-rgb-v2/{z}/{x}/{y}.webp?key=yWmkO7XO4p95VYjsc9ho'], // Reemplazar por tu API Key
+                tiles: ['https://api.maptiler.com/tiles/terrain-rgb-v2/{z}/{x}/{y}.webp?key=yWmkO7XO4p95VYjsc9ho'],
                 encoding: 'mapbox',
                 tileSize: 256
             }
         },
         layers: [
-            // Argenmap Gris inicia visible, Topo inicia apagado
+            
             { id: 'base-topo', type: 'raster', source: 'argenmap-topo', layout: { visibility: 'none' }, minzoom: 0, maxzoom: 18 },
             { id: 'base-gris', type: 'raster', source: 'argenmap-gris', layout: { visibility: 'visible' }, minzoom: 0, maxzoom: 18 }
         ]
     },
     center: [-68.3030, -54.8019],
     zoom: 11.5,
-    pitch: 0,    // Inicia plano
-    bearing: 0,  // Inicia orientado al norte
+    pitch: 0,    
+    bearing: 0,  
     maxPitch: 85
 });
 
@@ -70,20 +70,16 @@ function setupBaseMapControl() {
 map.on('load', () => {
     setupBaseMapControl();
 
-    // --- LÓGICA DEL TOGGLE 3D ---
     document.getElementById('toggle-3d').addEventListener('change', (e) => {
         if (e.target.checked) {
-            // Activa terreno y transiciona la cámara a 3D
             map.setTerrain({ source: 'maptiler-terrain', exaggeration: 1.2 });
             map.easeTo({ pitch: 65, bearing: -15, duration: 1200 });
         } else {
-            // Desactiva terreno y vuelve a vista 2D plana
             map.setTerrain(null);
             map.easeTo({ pitch: 0, bearing: 0, duration: 1200 });
         }
     });
 
-    // --- CARGA DE DATOS (Por defecto apagados) ---
     function loadLayerMapLibre(id, name, url, geometryType, style) {
         map.addSource(id, { type: 'geojson', data: url });
         const fillId = `${id}-fill`;
@@ -93,12 +89,12 @@ map.on('load', () => {
         if (geometryType === 'polygon') {
             map.addLayer({
                 id: fillId, type: 'fill', source: id,
-                layout: { 'visibility': 'none' }, // Inicia apagado
+                layout: { 'visibility': 'none' }, 
                 paint: { 'fill-color': style.fillColor, 'fill-opacity': style.fillOpacity || 0.5 }
             });
             map.addLayer({
                 id: lineId, type: 'line', source: id,
-                layout: { 'visibility': 'none' }, // Inicia apagado
+                layout: { 'visibility': 'none' },
                 paint: { 'line-color': style.color, 'line-width': style.weight || 2, 'line-dasharray': style.dashArray || [1] }
             });
             setupPopup(fillId);
@@ -186,9 +182,36 @@ map.on('load', () => {
     });
 
     loadLayerMapLibre('centros-invernales', 'Centros de Montaña', './data/centros_invernales.geojson', 'point', { 
-        color: '#ffffff', // Borde
-        fillColor: '#ce1256', // Interior
-        radius: 7, // Tamaño del punto
-        weight: 2 // Grosor del borde
+        color: '#ffffff',
+        fillColor: '#ce1256',
+        radius: 7, 
+        weight: 2 
+    });
+
+    loadLayerMapLibre('otbn', 'OTBN (Bosques)', './data/otbn.geojson', 'polygon', { 
+        color: [
+            'match',
+            ['get', 'id_'],
+            1, '#417505', 
+            2, '#a69979', 
+            3, '#b8e986', 
+            4, '#000000', 
+            5, '#000000', 
+            6, '#000000', 
+            '#31a354'     
+        ],
+        fillColor: [
+            'match',
+            ['get', 'id_'],
+            1, '#417505',
+            2, '#a69979',
+            3, '#b8e986',
+            4, '#000000',
+            5, '#000000',
+            6, '#000000',
+            '#a1d99b'     
+        ],
+        weight: 1, 
+        fillOpacity: 0.6
     });
 });
