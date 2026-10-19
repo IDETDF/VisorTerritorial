@@ -4,6 +4,14 @@ const map = new maplibregl.Map({
     style: {
         version: 8,
         sources: {
+            'esri-world-imagery': {
+                type: 'raster',
+                tiles: [
+                    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                ],
+                tileSize: 256,
+                attribution: 'Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+            },
             'argenmap-topo': {
                 type: 'raster',
                 tiles: ['https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/mapabase_topo@EPSG%3A3857@png/{z}/{x}/{y}.png'],
@@ -24,13 +32,14 @@ const map = new maplibregl.Map({
             }
         },
         layers: [
-            
+            // Esri arranca visible por defecto
+            { id: 'base-esri', type: 'raster', source: 'esri-world-imagery', layout: { visibility: 'visible' }, minzoom: 0, maxzoom: 19 },
             { id: 'base-topo', type: 'raster', source: 'argenmap-topo', layout: { visibility: 'none' }, minzoom: 0, maxzoom: 18 },
-            { id: 'base-gris', type: 'raster', source: 'argenmap-gris', layout: { visibility: 'visible' }, minzoom: 0, maxzoom: 18 }
+            { id: 'base-gris', type: 'raster', source: 'argenmap-gris', layout: { visibility: 'none' }, minzoom: 0, maxzoom: 18 }
         ]
     },
-    center: [-68.3030, -54.8019],
-    zoom: 11.5,
+    center: [-67.8150, -54.6850], // Coordenadas del Paso Garibaldi
+    zoom: 11,
     pitch: 0,    
     bearing: 0,  
     maxPitch: 85
@@ -42,7 +51,8 @@ map.addControl(new maplibregl.NavigationControl(), 'top-right');
 function setupBaseMapControl() {
     const container = document.getElementById('base-maps-list');
     const bases = [
-        { id: 'base-gris', name: 'Argenmap Gris', checked: true }, // Por defecto
+        { id: 'base-esri', name: 'Esri World Imagery (Satelital)', checked: true }, // Por defecto
+        { id: 'base-gris', name: 'Argenmap Gris', checked: false },
         { id: 'base-topo', name: 'Argenmap Topográfico', checked: false }
     ];
 
@@ -66,7 +76,6 @@ function setupBaseMapControl() {
         container.appendChild(label);
     });
 }
-
 map.on('load', () => {
     setupBaseMapControl();
 
@@ -162,56 +171,129 @@ map.on('load', () => {
         map.on('mouseleave', layerId, () => map.getCanvas().style.cursor = '');
     }
 
-    loadLayerMapLibre('ejido-actual', 'Ejido Urbano Actual', './data/ejido_actual.geojson', 'polygon', { color: '#800026', fillColor: '#e31a1c', weight: 2, fillOpacity: 0.5 });
-    loadLayerMapLibre('ejido-propuesto', 'Ejido Urbano Propuesto', './data/ejido_propuesto.geojson', 'polygon', { color: '#bd0026', fillColor: '#fd8d3c', weight: 3, dashArray: [2, 2], fillOpacity: 0.4 });
-    loadLayerMapLibre('ley-597', 'Áreas Ley 597', './data/ley_597.geojson', 'polygon', { color: '#54278f', fillColor: '#9e9ac8', weight: 1.5, fillOpacity: 0.2 });
-    loadLayerMapLibre('subareas-597', 'Subáreas Ley 597', './data/subareas_ley_597.geojson', 'polygon', { color: '#3f007d', fillColor: '#6a51a3', weight: 2, fillOpacity: 0.35 });
-    loadLayerMapLibre('pn-tdf', 'Parque Nacional TDF', './data/parque_nacional_tdf.geojson', 'polygon', { color: '#00441b', fillColor: '#238b45', weight: 2, fillOpacity: 0.25 });
-    loadLayerMapLibre('reserva-tdf', 'Reservas Naturales', './data/sistema_provincial_de_areas_naturales_protegidas_ide_tdf_marzo.geojson', 'polygon', { color: '#006d2c', fillColor: '#41ab5d', weight: 1.5, fillOpacity: 0.2 });
-    loadLayerMapLibre('cuencas', 'Cuencas', './data/cuencas.geojson', 'polygon', { color: '#08306b', fillColor: '#4292c6', weight: 1.5, dashArray: [3, 2], fillOpacity: 0.15 });
-    loadLayerMapLibre('cursos-agua', 'Cursos de Agua', './data/cursos_agua.geojson', 'line', { color: '#3182bd', weight: 2 });
-    loadLayerMapLibre('red-vial', 'Red Vial', './data/red_vial.geojson', 'line', { color: '#252525', weight: 2.5 });
-    loadLayerMapLibre('tierra-mayor', 'Tierra Mayor', './data/tierra_mayor.geojson', 'polygon', { 
-        color: '#2ca25f', fillColor: '#74c476', weight: 1.5, fillOpacity: 0.2 
+   // --- CAPAS DEL VISOR: ZONA GARIBALDI ---
+
+    // 1. Capas base / Hidrografía y relieve preexistentes
+    loadLayerMapLibre('cuencas', 'Cuencas', './data/cuencas.geojson', 'polygon', { 
+        color: '#08306b', fillColor: '#4292c6', weight: 1.5, dashArray: [3, 2], fillOpacity: 0.15 
     });
-    loadLayerMapLibre('sitios-ramsar', 'Sitios RAMSAR', './data/sitios_ramsar.geojson', 'polygon', { 
-        color: '#016c59', fillColor: '#1c9099', weight: 2, dashArray: [4, 4], fillOpacity: 0.3 
-    });
+    
     loadLayerMapLibre('cuerpos-agua', 'Cuerpos de Agua', './data/cuerpos_agua.geojson', 'polygon', { 
         color: '#08519c', fillColor: '#3182bd', weight: 1.5, fillOpacity: 0.6 
     });
 
-    loadLayerMapLibre('centros-invernales', 'Centros de Montaña', './data/centros_invernales.geojson', 'point', { 
-        color: '#ffffff',
-        fillColor: '#ce1256',
-        radius: 7, 
-        weight: 2 
+    loadLayerMapLibre('cursos-agua', 'Cursos de Agua', './data/cursos_agua.geojson', 'line', { 
+        color: '#3182bd', weight: 2 
     });
 
-    loadLayerMapLibre('otbn', 'Bosques Nativos', './data/otbn.geojson', 'polygon', { 
+    // 2. Nuevas capas de curvas de nivel (Elegí una o ambas según el rendimiento que prefieras)
+    loadLayerMapLibre('curvas-nivel', 'Curvas de Nivel', './data/curvas_nivel.geojson', 'line', { 
+        color: '#b2b2b2', weight: 1 
+    });
+
+    // 3. Capas de relieve e infraestructura
+    loadLayerMapLibre('cerros', 'Cerros', './data/cerros.geojson', 'point', { 
+        color: '#ffffff', fillColor: '#d95f02', radius: 6, weight: 2 
+    });
+
+    loadLayerMapLibre('red-vial', 'Red Vial', './data/red_vial.geojson', 'line', { 
+        color: '#252525', weight: 2.5 
+    });
+
+    loadLayerMapLibre('parcelario-rural', 'Parcelario Rural', './data/parcelario_rural.geojson', 'polygon', { 
+        color: '#737373', fillColor: '#bdbdbd', weight: 1, fillOpacity: 0.2 
+    });
+
+    // 4. Áreas protegidas, normativas y ambientales
+    loadLayerMapLibre('ley-597', 'Áreas Ley 597', './data/ley_597.geojson', 'polygon', { 
+        color: '#54278f', fillColor: '#9e9ac8', weight: 1.5, fillOpacity: 0.2 
+    });
+
+    loadLayerMapLibre('subareas-597', 'Subáreas Ley 597', './data/subareas_ley_597.geojson', 'polygon', { 
+        color: '#3f007d', fillColor: '#6a51a3', weight: 2, fillOpacity: 0.35 
+    });
+
+    loadLayerMapLibre('reserva-tdf', 'Reservas Naturales', './data/sistema_provincial_de_areas_naturales_protegidas_ide_tdf_marzo.geojson', 'polygon', { 
+        color: '#006d2c', fillColor: '#41ab5d', weight: 1.5, fillOpacity: 0.2 
+    });
+
+    loadLayerMapLibre('otbn', 'Bosques Nativos (OTBN)', './data/otbn.geojson', 'polygon', { 
         color: [
             'match',
-            ['get', 'id_'],
-            1, '#417505', 
-            2, '#a69979', 
-            3, '#b8e986', 
-            4, '#000000', 
-            5, '#000000', 
-            6, '#000000', 
-            '#31a354'     
+            ['get', 'cat_otbn'], // Reemplazá 'categoria' por el nombre real del campo si es distinto (ej: 'cat', 'id_', etc.)
+            '1-Rojo', '#d73027',       // Categoría I - Rojo (Muy alto valor de conservación)
+            '2-Amarillo', '#fee08b',       // Categoría II - Amarillo (Mediano valor de conservación)
+            '3-Verde', '#1a9850',       // Categoría III - Verde (Bajo valor de conservación - por si hubiera)
+            '#999999'             // Valor por defecto
         ],
         fillColor: [
             'match',
-            ['get', 'id_'],
-            1, '#417505',
-            2, '#a69979',
-            3, '#b8e986',
-            4, '#000000',
-            5, '#000000',
-            6, '#000000',
-            '#a1d99b'     
+            ['get', 'cat_otbn'],
+            '1-Rojo', '#d73027',
+            '2-Amarillo', '#fee08b',
+            '3-Verde', '#1a9850',
+            '#999999'
         ],
         weight: 1, 
-        fillOpacity: 0.6
+        fillOpacity: 0.5
+    });
+
+    loadLayerMapLibre('cobertura-suelo', 'Cobertura de Suelo', './data/cobertura_suelo.geojson', 'polygon', { 
+        color: [
+            'match', ['get', 'tcs'],
+            'Bosques_cerrados', '#1b7837',
+            'Bosques_abiertos', '#7fbc41',
+            'Arbustal_abierto', '#d9f0d3',
+            'Herbaceas_cerradas', '#a6dba0',
+            'Pastizal_abierto', '#c2a5cf',
+            'Areas_urbanas', '#737373',
+            'Cuerpos_de_agua', '#2166ac',
+            'Nieve', '#f7f7f7',
+            'Rocas', '#b2abd2',
+            'Suelos_pedregozos', '#dfc27d',
+            '#cccccc' // Valor por defecto si hay alguna categoría no contemplada
+        ],
+        fillColor: [
+            'match', ['get', 'tcs'],
+            'Bosques_cerrados', '#1b7837',
+            'Bosques_abiertos', '#7fbc41',
+            'Arbustal_abierto', '#d9f0d3',
+            'Herbaceas_cerradas', '#a6dba0',
+            'Pastizal_abierto', '#c2a5cf',
+            'Areas_urbanas', '#737373',
+            'Cuerpos_de_agua', '#2166ac',
+            'Nieve', '#f7f7f7',
+            'Rocas', '#b2abd2',
+            'Suelos_pedregozos', '#dfc27d',
+            '#cccccc'
+        ],
+        weight: 0.5, 
+        fillOpacity: 0.55
+    });
+
+    loadLayerMapLibre('humedales', 'Humedales', './data/humedales.geojson', 'polygon', { 
+        color: '#2b8cbe', 
+        fillColor: '#74a9cf', 
+        weight: 1, 
+        fillOpacity: 0.35 
+    });
+
+    loadLayerMapLibre('senderos-trekking', 'Senderos para Trekking', './data/senderos_para_trekking.geojson', 'line', { 
+        color: '#e08214', 
+        weight: 2.5, 
+        dashArray: [3, 2] // Línea punteada característica para senderos y picadas
+    });
+
+    loadLayerMapLibre('ordenamiento-turberas', 'Ordenamiento de Turberas', './data/ordenamiento_turberas.geojson', 'polygon', { 
+        color: '#8c6d31', fillColor: '#e7ba52', weight: 1.5, fillOpacity: 0.4 
+    });
+
+    // 5. Capas temáticas y de eventos específicos
+    loadLayerMapLibre('sitios-fuego', 'Sitios Habilitados para Hacer Fuego', './data/sitios_habilitados_para_hacer_fuego.geojson', 'point', { 
+        color: '#ffffff', fillColor: '#e41a1c', radius: 7, weight: 2 
+    });
+
+    loadLayerMapLibre('volteos-forestales', 'Volteos Forestales por Viento', './data/volteos_forestales_por_viento.geojson', 'polygon', { 
+        color: '#a63603', fillColor: '#fd8d3c', weight: 1.5, fillOpacity: 0.5 
     });
 });
