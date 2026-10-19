@@ -201,7 +201,10 @@ map.on('load', () => {
     });
 
     loadLayerMapLibre('parcelario-rural', 'Parcelario Rural', './data/parcelario_rural.geojson', 'polygon', { 
-        color: '#737373', fillColor: '#bdbdbd', weight: 1, fillOpacity: 0.2 
+        color: '#ffffff',       // Borde blanco brillante para máximo contraste con el satélite
+        fillColor: '#ffff00',   // Relleno amarillo suave o transparente
+        weight: 1.5,            // Grosor de línea legible
+        fillOpacity: 0.15       // Muy transparente para ver la foto debajo
     });
 
     // 4. Áreas protegidas, normativas y ambientales
