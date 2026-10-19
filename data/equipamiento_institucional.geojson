@@ -1,0 +1,31 @@
+{
+"type": "FeatureCollection",
+"name": "equipamiento_institucional",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 16, "tipo": "Mirador", "leyenda": "Mirador Paso Garibaldi" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.841081376976391, -54.689272324614578 ] ] } },
+{ "type": "Feature", "properties": { "id": 2, "tipo": "Escuela", "leyenda": "Escuela Prov N°6 \"Entre Ríos\"" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.762864313034854, -54.641846027377156 ] ] } },
+{ "type": "Feature", "properties": { "id": 23, "tipo": "Seguridad Vial", "leyenda": "Seguridad Vial" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.836753333000033, -54.740956667000042 ] ] } },
+{ "type": "Feature", "properties": { "id": 20, "tipo": "Policia", "leyenda": "Policia Provincial" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.826711633742804, -54.741923457518169 ] ] } },
+{ "type": "Feature", "properties": { "id": 24, "tipo": "Vialidad Nacional", "leyenda": "Vialidad Nacional" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.832297299418698, -54.741304953368747 ] ] } },
+{ "type": "Feature", "properties": { "id": 1, "tipo": "Emprendimiento", "leyenda": "Aserr. Bronzovich" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.76348358610062, -54.635823091808973 ] ] } },
+{ "type": "Feature", "properties": { "id": 14, "tipo": "Hosteria", "leyenda": "Cabañas Petrel" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.814484733334552, -54.68192564559525 ] ] } },
+{ "type": "Feature", "properties": { "id": 15, "tipo": null, "leyenda": "Hostería Petrel" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.813035133195143, -54.680797477248426 ] ] } },
+{ "type": "Feature", "properties": { "id": 12, "tipo": "Fogones", "leyenda": "Fogones Lago Escondido" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.801724461406778, -54.65817884216662 ] ] } },
+{ "type": "Feature", "properties": { "id": 19, "tipo": "Pista", "leyenda": "Pista Lago Escondido" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.755169337212706, -54.631431413374429 ] ] } },
+{ "type": "Feature", "properties": { "id": 13, "tipo": "Gendarmeria", "leyenda": "Gendarmeria" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.762371329406193, -54.640799160021231 ] ] } },
+{ "type": "Feature", "properties": { "id": 22, "tipo": "Protección Civil", "leyenda": "Protección Civil" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.76190331754853, -54.640794376444468 ] ] } },
+{ "type": "Feature", "properties": { "id": 21, "tipo": "Policia", "leyenda": "Policia Provincial" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.781191346718856, -54.649029352905373 ] ] } },
+{ "type": "Feature", "properties": { "id": 17, "tipo": "Muelle", "leyenda": "Muelle" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.763690936493632, -54.639555175581684 ] ] } },
+{ "type": "Feature", "properties": { "id": 18, "tipo": "Muelle", "leyenda": "Muelle" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.813329760800443, -54.680524515695353 ] ] } },
+{ "type": "Feature", "properties": { "id": 3, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.804195800157416, -54.684043011942194 ] ] } },
+{ "type": "Feature", "properties": { "id": 4, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.806161391916888, -54.685885529785836 ] ] } },
+{ "type": "Feature", "properties": { "id": 5, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.808553075342047, -54.685378937238795 ] ] } },
+{ "type": "Feature", "properties": { "id": 6, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.825502844323466, -54.688096467322843 ] ] } },
+{ "type": "Feature", "properties": { "id": 7, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.830257217540606, -54.733950053601681 ] ] } },
+{ "type": "Feature", "properties": { "id": 8, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.837634740527491, -54.704763247603715 ] ] } },
+{ "type": "Feature", "properties": { "id": 9, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.837287917500646, -54.702124387402243 ] ] } },
+{ "type": "Feature", "properties": { "id": 10, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.842985232100148, -54.698649029709969 ] ] } },
+{ "type": "Feature", "properties": { "id": 11, "tipo": "Estacionamiento", "leyenda": "Estacionamiento" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -67.844919284156163, -54.69036298738768 ] ] } }
+]
+}

@@ -296,4 +296,28 @@ map.on('load', () => {
     loadLayerMapLibre('volteos-forestales', 'Volteos Forestales por Viento', './data/volteos_forestales_por_viento.geojson', 'polygon', { 
         color: '#a63603', fillColor: '#fd8d3c', weight: 1.5, fillOpacity: 0.5 
     });
+
+    loadLayerMapLibre('mojones', 'Mojones', './data/mojones.geojson', 'point', { 
+        color: '#ffffff', fillColor: '#252525', radius: 5, weight: 2 
+    });
+
+    loadLayerMapLibre('castoreras', 'Castoreras', './data/castoreras.geojson', 'point', { 
+        color: '#8c510a', fillColor: '#bf812d', radius: 6, weight: 1.5 
+    });
+
+    loadLayerMapLibre('equipamiento-institucional', 'Equipamiento Institucional', './data/equipamiento_institucional.geojson', 'point', { 
+        color: '#ffffff', fillColor: '#2171b3', radius: 6, weight: 2 
+    });
+
+    loadLayerMapLibre('gasoducto', 'Gasoducto', './data/gasoducto.geojson', 'line', { 
+        color: '#cb181d', weight: 2.5 
+    });
+
+    loadLayerMapLibre('fibra-optica', 'Fibra Óptica', './data/fibra_optica.geojson', 'line', { 
+        color: '#2ca25f', weight: 2, dashArray: [2, 2] // Línea punteada para diferenciar la fibra
+    });
+
+    loadLayerMapLibre('refugios', 'Refugios', './data/refugios.geojson', 'point', { 
+        color: '#ffffff', fillColor: '#006d2c', radius: 7, weight: 2 
+    });
 });
